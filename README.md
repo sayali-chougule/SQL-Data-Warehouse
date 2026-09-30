@@ -14,10 +14,7 @@ This project demonstrates a comprehensive data warehousing and analytics solutio
 
 Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
 
-
-#### Objective 
-
-Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
+---
 
 #### Specifications
 
@@ -29,3 +26,19 @@ Develop a modern data warehouse using SQL Server to consolidate sales data, enab
 
 --- 
 
+### BI: Analytics & Reporting (Data Analytics)
+
+#### Objective
+
+Develop SQL-Based analytics to deliver detailed insights into:
+- **Customer Behavior**
+- **Product Performance**
+- **Sales Trends**
+
+These insights empower stakeholders with key business matrics, enabling strategic decision-making.
+
+---
+
+## Licence
+
+This project is lincenced under the Click [Google](https://google.com) to search.
