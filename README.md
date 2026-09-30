@@ -41,4 +41,10 @@ These insights empower stakeholders with key business matrics, enabling strategi
 
 ## Licence
 
-This project is lincenced under the Click [Google](https://google.com) to search.
+This project is lincenced under the Click [MIT Licence](https://github.com/sayali-chougule/SQL-Data-Warehouse?tab=readme-ov-file#). Free to use, modify and share this project with proper attribution
+
+---
+
+## About Me
+
+Hi there! I am **Sayali Chougule**. A Data Scientist with 5+ years of experience. 
