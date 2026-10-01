@@ -18,7 +18,15 @@ Warning:
 
 */
 
--- Create Database
+-- Drop and recreate the 'DataWareHouse' database
+
+IF EXISTS (SELECT 1 sys.databases WHERE name = 'DataWareHouse')
+BEGIN
+    ALTER DATABASE DataWareHouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE DataWareHouse;
+END;
+
+-- Create the 'DataWareHouse' database
 
 CREATE DATABASE DataWareHouse;
 
