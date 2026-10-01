@@ -1,6 +1,9 @@
 CREATE OR REPLACE PROCEDURE bronze.load_bronze()
 LANGUAGE plpgsql
 AS $$
+DECLARE
+    start_time TIMESTAMP;
+    end_time TIMESTAMP;
 BEGIN
 
 	RAISE NOTICE '================================================';
@@ -13,6 +16,7 @@ BEGIN
 
     -- crm_cust_info
 
+    start_time := clock_timestamp();
 	RAISE NOTICE '>> Truncating Table: bronze.crm_cust_info';
     TRUNCATE TABLE bronze.crm_cust_info;
 
@@ -25,8 +29,12 @@ BEGIN
         DELIMITER ','
     );
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- crm_prd_info
-	
+	start_time := clock_timestamp();
 	RAISE NOTICE '>> Truncating Table: bronze.crm_prd_info';
     TRUNCATE TABLE bronze.crm_prd_info;
 
@@ -39,8 +47,12 @@ BEGIN
         DELIMITER ','
     );
 
-    -- crm_sales_details
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
 
+    -- crm_sales_details
+    start_time := clock_timestamp();
 	RAISE NOTICE '>> Truncating Table: bronze.crm_sales_details';
     TRUNCATE TABLE bronze.crm_sales_details;
 
@@ -53,12 +65,17 @@ BEGIN
         DELIMITER ','
     );
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     RAISE NOTICE '------------------------------------------------';
     RAISE NOTICE 'Loading ERP Tables';
     RAISE NOTICE '------------------------------------------------';
 	
     -- erp_loc_a101
 
+    start_time := clock_timestamp();
 	RAISE NOTICE '>> Truncating Table: bronze.erp_loc_a101';
     TRUNCATE TABLE bronze.erp_loc_a101;
 
@@ -70,9 +87,13 @@ BEGIN
         HEADER TRUE,
         DELIMITER ','
     );
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
 
     -- erp_cust_az12
-	
+
+	start_time := clock_timestamp();
 	RAISE NOTICE '>> Truncating Table: bronze.erp_cust_az12';
     TRUNCATE TABLE bronze.erp_cust_az12;
 
@@ -85,8 +106,13 @@ BEGIN
         DELIMITER ','
     );
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- erp_px_cat_g1v2
-		
+    
+	start_time := clock_timestamp();	
 	RAISE NOTICE '>> Truncating Table: bronze.erp_px_cat_g1v2';
     TRUNCATE TABLE bronze.erp_px_cat_g1v2;
 
@@ -98,6 +124,10 @@ BEGIN
         HEADER TRUE,
         DELIMITER ','
     );
+
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
 
     EXCEPTION
     WHEN OTHERS THEN
