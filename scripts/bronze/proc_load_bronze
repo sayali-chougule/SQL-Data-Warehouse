@@ -99,5 +99,15 @@ BEGIN
         DELIMITER ','
     );
 
+    EXCEPTION
+    WHEN OTHERS THEN
+        RAISE NOTICE '========================================';
+        RAISE NOTICE 'ERROR LOADING BRONZE LAYER';
+        RAISE NOTICE 'Error Message: %', SQLERRM;
+        RAISE NOTICE 'SQL State: %', SQLSTATE;
+        RAISE NOTICE '========================================';
+
+        RAISE;
+
 END;
 $$;
