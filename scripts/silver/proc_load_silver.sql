@@ -6,7 +6,11 @@ AS $$
 DECLARE
     start_time TIMESTAMP;
     end_time TIMESTAMP;
+    batch_start_time TIMESTAMP;
+    batch_end_time TIMESTAMP;
 BEGIN
+
+    batch_start_time := clock_timestamp();
 
     RAISE NOTICE '================================================';
     RAISE NOTICE 'Loading Silver Layer';
@@ -231,6 +235,14 @@ BEGIN
     end_time := clock_timestamp();
     RAISE NOTICE '>> Load Duration: % seconds',
         EXTRACT(EPOCH FROM (end_time - start_time));
+
+    batch_end_time := clock_timestamp();
+
+    RAISE NOTICE '================================================';
+    RAISE NOTICE 'Loading Silver Layer Completed';
+    RAISE NOTICE '>> Total Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (batch_end_time - batch_start_time));
+    RAISE NOTICE '================================================';
 
     EXCEPTION
     WHEN OTHERS THEN
