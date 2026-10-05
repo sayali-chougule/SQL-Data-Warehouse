@@ -7,7 +7,6 @@ INSERT INTO silver.crm_cust_info(
     cst_gndr,
     cst_create_date
 )
-
 SELECT
 cst_id,
 cst_key,
