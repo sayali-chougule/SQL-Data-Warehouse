@@ -3,9 +3,23 @@
 CREATE OR REPLACE PROCEDURE silver.load_silver()
 LANGUAGE plpgsql
 AS $$
+DECLARE
+    start_time TIMESTAMP;
+    end_time TIMESTAMP;
 BEGIN
 
+    RAISE NOTICE '================================================';
+    RAISE NOTICE 'Loading Silver Layer';
+    RAISE NOTICE '================================================';
+
+    RAISE NOTICE '------------------------------------------------';
+    RAISE NOTICE 'Loading CRM Tables';
+    RAISE NOTICE '------------------------------------------------';
+
+
     -- crm_cust_info
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.crm_cust_info';
     TRUNCATE TABLE silver.crm_cust_info;
@@ -41,7 +55,13 @@ BEGIN
         WHERE cst_id IS NOT NULL
     ) AS t WHERE flag_last = 1;
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- crm_prd_info
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.crm_prd_info';
     TRUNCATE TABLE silver.crm_prd_info;
@@ -74,7 +94,13 @@ BEGIN
     AS prd_end_dt -- Calculate end date as one day before the next start date
     FROM bronze.crm_prd_info;
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- crm_sales_details
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.crm_sales_details';
     TRUNCATE TABLE silver.crm_sales_details;
@@ -115,7 +141,19 @@ BEGIN
     sls_quantity
     FROM bronze.crm_sales_details;
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
+    RAISE NOTICE '------------------------------------------------';
+    RAISE NOTICE 'Loading ERP Tables';
+    RAISE NOTICE '------------------------------------------------';
+
+
+
     -- erp_cust_az12
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.erp_cust_az12';
     TRUNCATE TABLE silver.erp_cust_az12;
@@ -140,7 +178,13 @@ BEGIN
     END AS gen
     FROM bronze.erp_cust_az12;
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- erp_loc_a101
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.erp_loc_a101';
     TRUNCATE TABLE silver.erp_loc_a101;
@@ -159,7 +203,13 @@ BEGIN
         END AS cntry  -- Normalize and Handle missing or blank county codes
     FROM bronze.erp_loc_a101;
 
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
+
     -- erp_px_cat_g1v2
+
+    start_time := clock_timestamp();
 
     RAISE NOTICE '>> Truncating Table: silver.erp_px_cat_g1v2';
     TRUNCATE TABLE silver.erp_px_cat_g1v2;
@@ -177,6 +227,10 @@ BEGIN
         subcat,
         maintenance
     FROM bronze.erp_px_cat_g1v2;
+
+    end_time := clock_timestamp();
+    RAISE NOTICE '>> Load Duration: % seconds',
+        EXTRACT(EPOCH FROM (end_time - start_time));
 
     EXCEPTION
     WHEN OTHERS THEN
