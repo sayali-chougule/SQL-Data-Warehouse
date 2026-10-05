@@ -11,7 +11,7 @@ CREATE TABLE bronze.crm_cust_info(
     cst_create_date DATE
 );
 
-DROP TABLE IF bronze.crm_prd_info;
+DROP TABLE IF EXISTS bronze.crm_prd_info;
 
 CREATE TABLE bronze.crm_prd_info(
     prd_id INT,
@@ -23,7 +23,7 @@ CREATE TABLE bronze.crm_prd_info(
     prd_end_dt DATE
 )
 
-DROP TABLE IF bronze.crm_sales_details;
+DROP TABLE IF EXISTS bronze.crm_sales_details;
 
 CREATE TABLE bronze.crm_sales_details(
     sls_ord_num VARCHAR(50),
@@ -44,7 +44,7 @@ CREATE TABLE bronze.erp_loc_a101(
     cntry VARCHAR(50)
 );
 
-DROP TABLE IF bronze.erp_cust_az12;
+DROP TABLE IF EXISTS bronze.erp_cust_az12;
 
 CREATE TABLE bronze.erp_cust_az12(
     cid VARCHAR(50),
@@ -52,9 +52,9 @@ CREATE TABLE bronze.erp_cust_az12(
     gen VARCHAR(30)
 );
 
-DROP TABLE IF bronze.px_cat_g1v2
+DROP TABLE IF EXISTS bronze.px_cat_g1v2;
 
-CREATE TABLE bronze.px_cat_g1v2(
+CREATE TABLE bronze.erp_px_cat_g1v2(
     id VARCHAR(50),
     cat VARCHAR(50),
     subcat VARCHAR(50),
