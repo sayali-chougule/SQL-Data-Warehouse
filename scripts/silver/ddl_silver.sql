@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS silver.crm_prd_info;
 
 CREATE TABLE silver.crm_prd_info(
     prd_id INT,
+    cat_id VARCHAR(30),
     prd_key VARCHAR(30),
     prd_nm VARCHAR(50),
     prd_cost INT,
