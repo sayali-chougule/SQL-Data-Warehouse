@@ -111,3 +111,17 @@ END AS bdate,
     ELSE gen
 END AS gen
 FROM bronze.erp_cust_az12;
+
+
+INSERT INTO silver.erp_loc_a101(
+    cid,
+    cntry
+)
+SELECT 
+    REPLACE(cid, '-', '') cid,
+    CASE WHEN TRIM(cntry) = 'US' OR cntry = 'USA' THEN 'United States'
+         WHEN TRIM(cntry) = 'DE' THEN 'Germany'
+         WHEN cntry IS NULL or TRIM(cntry) = '' THEN 'n/a'
+         ELSE TRIM(cntry)
+    END AS cntry  -- Normalize and Handle missing or blank county codes
+FROM bronze.erp_loc_a101;
