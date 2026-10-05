@@ -60,7 +60,7 @@ CREATE TABLE silver.erp_cust_az12(
 
 DROP TABLE IF EXISTS silver.px_cat_g1v2;
 
-CREATE TABLE silver.px_cat_g1v2(
+CREATE TABLE silver.erp_px_cat_g1v2(
     id VARCHAR(50),
     cat VARCHAR(50),
     subcat VARCHAR(50),
